@@ -29,7 +29,7 @@ namespace SeleniumTests
             //opton.AddArgument("--headless");
             driver = new ChromeDriver(option);
             //driver = new ChromeDriver();
-            //baseURL = https://www.google.com/;
+            baseURL = "https://www.google.com/";
         }
 
         [ClassCleanup]
@@ -68,6 +68,10 @@ namespace SeleniumTests
             driver.FindElement(By.Name("q")).SendKeys("spb + bacen filetype:pdf");
             driver.FindElement(By.Id("tsf")).Submit();
             driver.FindElement(By.XPath("//div[@id='rso']/div/div[2]/div/a/h3/span")).Click();
+
+            ITakesScreenshot camera = driver as ITakesScreenshot;
+            Screenshot screenshot = camera.GetScreenshot();
+            screenshot.SaveAsFile($"{Guid.NewGuid()}.png");
         }
         private bool IsElementPresent(By by)
         {
